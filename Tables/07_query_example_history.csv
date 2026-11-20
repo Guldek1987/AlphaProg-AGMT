@@ -1,0 +1,4 @@
+Prior_attempt,Task,Start_minus_t0_s,Last_event_minus_t0_s,Continues_after_t0,Final_runs (hidden),Final_solved (hidden),Runs_before_t0,First_run_correct_before_t0,Solved_before_t0,Edits_before_t0
+1,26,-261.864261,-130.820246,False,3,False,3,False,False,12
+2,49,-102.536182,201.888274,True,1,True,0,no run yet,False,0
+3,44,-73.684713,-50.568459,False,1,True,1,True,True,3

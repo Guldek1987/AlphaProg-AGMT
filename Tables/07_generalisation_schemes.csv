@@ -1,0 +1,4 @@
+Scheme,Training_queries,Training_learners,Evaluation_queries,Evaluation_learners,Co_activity_share
+Original learner split,108877,8075,22899,1762,0.9876
+Next school year,83400,5918,5684,495,0.00035
+Unseen tasks (3 task folds),72584,8075,22899,1762,not applicable

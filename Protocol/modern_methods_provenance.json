@@ -1,0 +1,25 @@
+{
+  "sources": [
+    {
+      "method": "akt",
+      "repository": "https://github.com/pykt-team/pykt-toolkit",
+      "revision": "77c3e90fdb807542194b989656ccac10e5d92e12",
+      "file": "Docs/Method_Sources/pykt_pykt_models_akt.py",
+      "sha256": "bba6eef192264035020e723ee5169865718b8fbec6f4373073ce0514a55f4ce9",
+      "executed": true,
+      "execution_scope": "notebook 04, feature revision event_prefix_v2: selected configuration, three learner folds and seeds 17/42/2026; out-of-fold train forecasts and full-training validation forecasts saved"
+    },
+    {
+      "method": "ukt",
+      "repository": "https://github.com/pykt-team/pykt-toolkit",
+      "revision": "77c3e90fdb807542194b989656ccac10e5d92e12",
+      "file": "Docs/Method_Sources/pykt_pykt_models_ukt.py",
+      "sha256": "edf78e409e19d7aaf70d8450bab8e10254928cd72f224bac1974b12a0e7c4d55",
+      "executed": true,
+      "execution_scope": "notebook 04, feature revision event_prefix_v2: selected configuration, three learner folds and seeds 17/42/2026; out-of-fold train forecasts and full-training validation forecasts saved"
+    }
+  ],
+  "license": "Docs/Method_Sources/LICENSE_pykt",
+  "tabm_version": "0.0.3",
+  "note": "Execution status reflects the saved outputs of notebook 04 (see Protocol/execution_ledger.json)."
+}

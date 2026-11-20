@@ -1,0 +1,5 @@
+Characteristic,Count
+Numeric features before transformation,51
+Numeric features after imputation,73
+Categorical task identifier,1
+Pairs with |Spearman| > 0.995,2

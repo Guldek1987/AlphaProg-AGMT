@@ -1,0 +1,7 @@
+Group,Features,Availability,Role
+Pre-test cCTt and grade,2,Before prediction,Input
+Teacher perception and motivation,16,January 2021,Input
+Number of lessons delivered,15,"June, after post-test",Excluded
+Professional development rating,6,Not separately established,Excluded
+Final cCTt,1,June 2021,Target
+Score change,1,Uses the final target,Excluded from inputs

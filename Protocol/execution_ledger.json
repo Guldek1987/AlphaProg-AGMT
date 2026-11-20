@@ -1,0 +1,94 @@
+{
+  "notebooks": [
+    {
+      "notebook": "01_Data_and_Research_Design.ipynb",
+      "code_cells": 19,
+      "executed_saved": 19,
+      "error_outputs": 0,
+      "stream_outputs": 0,
+      "execution_counts_increasing": true,
+      "execution_method": "Sequential cell execution in JupyterLab from a fresh kernel, Windows 11, NVIDIA GeForce RTX 5070 Laptop GPU, CUDA 12.8, PyTorch 2.11.0+cu128, Python 3.13.17",
+      "code_sha256": "c3db633f5334fb5df4848797a5f048d007d45039be86eb1da107a3dbbbcacc27",
+      "saved_local_time": "2026-11-19T18:24:33",
+      "complete": true
+    },
+    {
+      "notebook": "02_EDA_and_Leakage_Safe_Features.ipynb",
+      "code_cells": 22,
+      "executed_saved": 22,
+      "error_outputs": 0,
+      "stream_outputs": 0,
+      "execution_counts_increasing": true,
+      "execution_method": "Sequential cell execution in JupyterLab from a fresh kernel, Windows 11, NVIDIA GeForce RTX 5070 Laptop GPU, CUDA 12.8, PyTorch 2.11.0+cu128, Python 3.13.17",
+      "code_sha256": "45b016384f759b5c0f62b5086072de8c465bd50744b0039864b8d2261de37318",
+      "saved_local_time": "2026-11-19T00:08:10",
+      "complete": true
+    },
+    {
+      "notebook": "03_Baseline_Models.ipynb",
+      "code_cells": 14,
+      "executed_saved": 14,
+      "error_outputs": 0,
+      "stream_outputs": 0,
+      "execution_counts_increasing": true,
+      "execution_method": "Sequential cell execution in JupyterLab from a fresh kernel, Windows 11, NVIDIA GeForce RTX 5070 Laptop GPU, CUDA 12.8, PyTorch 2.11.0+cu128, Python 3.13.17",
+      "code_sha256": "f02cbd9e6c30c9a333d20042c321f62c0deecb5619dae0fe7207402bae4de6f4",
+      "saved_local_time": "2026-11-19T00:13:25",
+      "complete": true
+    },
+    {
+      "notebook": "04_Contemporary_Models.ipynb",
+      "code_cells": 24,
+      "executed_saved": 24,
+      "error_outputs": 0,
+      "stream_outputs": 0,
+      "execution_counts_increasing": true,
+      "execution_method": "Sequential cell execution in JupyterLab from a fresh kernel, Windows 11, NVIDIA GeForce RTX 5070 Laptop GPU, CUDA 12.8, PyTorch 2.11.0+cu128, Python 3.13.17",
+      "code_sha256": "855e1f42bdd20ced9c96b90e6d25233968380db629934742cd3e210a2866f67b",
+      "saved_local_time": "2026-11-19T18:20:44",
+      "complete": true
+    },
+    {
+      "notebook": "05_Proposed_Model_and_Ablations.ipynb",
+      "code_cells": 25,
+      "executed_saved": 25,
+      "error_outputs": 0,
+      "stream_outputs": 0,
+      "execution_counts_increasing": true,
+      "execution_method": "Sequential execution of all cells from a fresh kernel with jupyter nbconvert --execute --inplace (kernel alpha-cuda), Windows 11, NVIDIA GeForce RTX 5070 Laptop GPU, CUDA 12.8, PyTorch 2.11.0+cu128, Python 3.13.17",
+      "code_sha256": "ee94d8458b41c0e58cbe38811169ea215123f368ae8208faebb2556de79e8b7e",
+      "saved_local_time": "2026-11-20T19:08:07",
+      "complete": true
+    },
+    {
+      "notebook": "06_Model_Analysis.ipynb",
+      "code_cells": 32,
+      "executed_saved": 32,
+      "error_outputs": 0,
+      "stream_outputs": 0,
+      "execution_counts_increasing": true,
+      "execution_method": "Sequential execution of all cells from a fresh kernel with jupyter nbconvert --execute --inplace (kernel alpha-cuda), Windows 11, NVIDIA GeForce RTX 5070 Laptop GPU, CUDA 12.8, PyTorch 2.11.0+cu128, Python 3.13.17",
+      "code_sha256": "03258b0bcb334f57ee444cd8568e5e863850cdb58bbb7b1a3dc52d39b7c162ac",
+      "saved_local_time": "2026-11-20T19:09:52",
+      "complete": true
+    },
+    {
+      "notebook": "07_Final_Publication_Results.ipynb",
+      "code_cells": 56,
+      "executed_saved": 56,
+      "error_outputs": 0,
+      "stream_outputs": 0,
+      "execution_counts_increasing": true,
+      "execution_method": "Sequential execution of all cells from a fresh kernel with jupyter nbconvert --execute --inplace (kernel alpha-cuda), Windows 11, NVIDIA GeForce RTX 5070 Laptop GPU, CUDA 12.8, PyTorch 2.11.0+cu128, Python 3.13.17",
+      "code_sha256": "9037c6d3264135fdc132dfd2542858a051472ca06ca7ce1528a133d853b3ee23",
+      "saved_local_time": "2026-11-20T21:28:52",
+      "complete": true
+    }
+  ],
+  "feature_revision": "event_prefix_v2",
+  "locked_test_opened": true,
+  "development_protocol": "Protocol/model_development_protocol.json",
+  "additional_analyses": "Notebooks/07_Final_Publication_Results.ipynb, section 'Additional experiments after the test was opened'; protocol Protocol/additional_analyses_protocol.json",
+  "snapshot_utc": "2026-11-20T16:30:08+00:00",
+  "note": "Notebook 05 implements the validation-only development procedure and freezes the selected configuration; notebook 06 evaluates the locked test for it; notebook 07 contains the publication tables and the additional analyses. The saved_local_time of a notebook is the time of its last save, which for notebooks 05-07 includes the later update of the markdown interpretations; code cells and outputs were not changed after execution."
+}

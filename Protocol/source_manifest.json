@@ -1,0 +1,55 @@
+[
+  {
+    "file": "Data\\Raw\\zenodo_7489244\\student_surveytest_nov_2021.csv",
+    "source": "https://zenodo.org/api/records/7489244/files/student_surveytest_nov_2021.csv/content",
+    "bytes": 417132,
+    "sha256": "9b4741a93071c930068d12407bff429dce7ca8675c2e7b96d88255e5b6a33da4",
+    "source_md5": "md5:4c0131c693c1b436602df72c180a8c34"
+  },
+  {
+    "file": "Data\\Raw\\zenodo_7489244\\student_survey_may_2022.csv",
+    "source": "https://zenodo.org/api/records/7489244/files/student_survey_may_2022.csv/content",
+    "bytes": 186764,
+    "sha256": "ce1d1011766f5cadbb4b1d0f67e68e3f65fbea0c830c8505e065ce9fc1cacc7f",
+    "source_md5": "md5:461a76d060936f8a5ae8987c5c7b0e8e"
+  },
+  {
+    "file": "Data\\Raw\\zenodo_7489244\\README.md",
+    "source": "https://zenodo.org/api/records/7489244/files/README.md/content",
+    "bytes": 36314,
+    "sha256": "9179abe9b4d28a877c6d49e5a2263303d2d1d3f2a5d50a341bdc211333086973",
+    "source_md5": "md5:75e56513fcb7da1668cc5daa0536727b"
+  },
+  {
+    "file": "Data\\Raw\\zenodo_7489244\\student_test_janjune_2021.csv",
+    "source": "https://zenodo.org/api/records/7489244/files/student_test_janjune_2021.csv/content",
+    "bytes": 272707,
+    "sha256": "8d0c3a9ba06875e679aefc8e4d24f5020d05cbda12e4f28f116236bac21872da",
+    "source_md5": "md5:d7a06c65c6fe30161486571fbdb65107"
+  },
+  {
+    "file": "Data\\Raw\\robomission\\robomission-2019-12-10.zip",
+    "source": "https://drive.google.com/file/d/1iKgMZFcKy5J1Ry9K7sUVeLAHK1fq-xJV/view",
+    "official_reference": "https://github.com/adaptive-learning/adaptive-learning-research/tree/master/data/robomission-2019-02-09",
+    "bytes": 53550547,
+    "sha256": "c8d0fa1a635026b352f413f1d6ec15b8aec8ecea9cfd067daf9399d06a392088"
+  },
+  {
+    "file": "Data\\Raw\\robomission\\robomission-2019-12-10\\attempts.csv",
+    "bytes": 11720575,
+    "sha256": "549769d955653eea019b75ad2242f71fcf6134016c343d87e57e2203ea5889c4",
+    "archive": "robomission-2019-12-10.zip"
+  },
+  {
+    "file": "Data\\Raw\\robomission\\robomission-2019-12-10\\events.csv",
+    "bytes": 256423714,
+    "sha256": "8667dba89bbab8ececd73cfebec5cf2925ef82e9e2f0b50ac44fed0fd3ebaa25",
+    "archive": "robomission-2019-12-10.zip"
+  },
+  {
+    "file": "Data\\Raw\\robomission\\robomission-2019-12-10\\problems.csv",
+    "bytes": 28556,
+    "sha256": "3f3047ed4f115405ec0cef9ad94937b6dfe2d698a87509f3cb38996cb527fbf2",
+    "archive": "robomission-2019-12-10.zip"
+  }
+]

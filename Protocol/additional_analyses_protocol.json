@@ -1,0 +1,264 @@
+{
+ "status": "post_hoc_after_test_evaluation",
+ "written_before_execution_utc": "2026-11-18T21:50:52Z",
+ "feature_revision": "event_prefix_v2",
+ "frozen_configuration": "Protocol/frozen_proposed_model.json",
+ "frozen_configuration_changed": false,
+ "notebook": "Notebooks/07_Final_Publication_Results.ipynb",
+ "implementation_reuse": {
+  "rule": "Training and inference code is executed verbatim from saved code cells of notebooks 03, 04, 05 and 06; only training-log output paths are redirected to Results/additional so frozen artifacts are not overwritten.",
+  "notebook_03_cells": [
+   1,
+   3
+  ],
+  "notebook_04_cells": [
+   1,
+   3,
+   5,
+   7
+  ],
+  "notebook_05_cells": [
+   1,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "notebook_06_cells": [
+   1,
+   3,
+   4,
+   5,
+   6
+  ],
+  "frozen_configuration_rule": "the notebook 05 namespace receives GraphConfig(**frozen['graph_config']) and ablation_configs() of it"
+ },
+ "seeds": [
+  17,
+  42,
+  2026
+ ],
+ "seed_aggregation": "arithmetic mean of first-run probability p and tail hazard q across seeds",
+ "uncertainty": {
+  "intervals": "learner-cluster bootstrap, 1000 repetitions, 95% percentile",
+  "tests": "paired learner-level sign-flip randomization, 2000 repetitions",
+  "multiplicity": "Holm within each declared family",
+  "seed": 20260923
+ },
+ "practical_logloss_difference": 0.005,
+ "experiments": {
+  "joint_forecast_decomposition": {
+   "models": [
+    "AlphaProg-AGMT",
+    "GraphTrajectory",
+    "LightGBM",
+    "TabM"
+   ],
+   "metrics": [
+    "LogLoss",
+    "Tail NLL",
+    "Effort NLL",
+    "IPCW Brier at runs 3, 5, 10"
+   ],
+   "holm_family": "AlphaProg-AGMT versus each comparator on LogLoss, Tail NLL and Effort NLL (9 tests)"
+  },
+  "regime_strata": {
+   "history_groups": [
+    "0",
+    "1-8",
+    "9-32",
+    "33+"
+   ],
+   "section_groups": [
+    "1-3",
+    "4-6",
+    "7-9"
+   ]
+  },
+  "decision_analysis": {
+   "failure_support": "net benefit of flagging likely first-run failure, thresholds 0.30-0.80; tabulated at 0.4, 0.5, 0.6, 0.7",
+   "long_effort": "identify first visits needing more than 5 runs using P(T > 5) = (1 - p)(1 - q)^4; censored records with fewer than 5 runs are excluded",
+   "models": [
+    "AlphaProg-AGMT",
+    "GraphTrajectory",
+    "LightGBM",
+    "TabM"
+   ]
+  },
+  "censoring_and_hazard": {
+   "informative_censoring": "learner-fold out-of-fold LightGBM (frozen settings) predicting censoring among failed first runs",
+   "life_table": "observed tail hazard by run index versus mean predicted q in the risk set, runs 2-10",
+   "run_varying_hazard": "logit(q_r) = logit(q) + gamma_g, run groups 2, 3, 4, 5, 6-10, 11+, gamma estimated on validation, evaluated on test",
+   "stratified_ipcw": "reverse Kaplan-Meier censoring curves within section group x history availability"
+  },
+  "structural_limits": {
+   "graph_node_limit": "descriptive: share of programs and history steps above 64 nodes",
+   "history_window": [
+    8,
+    16,
+    32
+   ]
+  },
+  "gate_variants": {
+   "shared_gate_frozen": {
+    "l2": 0.0,
+    "prior": 0.5
+   },
+   "constant_gate": "adaptive=False, grid L2 {0, 0.0001, 0.001, 0.01} x prior {0.2, 0.5}, chosen on validation",
+   "separate_gates": "one gate for p (primary loss) and one for q (1 x tail loss), frozen L2 and prior",
+   "extended_grid": {
+    "l2": [
+     0.0,
+     0.0001,
+     0.001,
+     0.01,
+     0.1
+    ],
+    "prior": [
+     0.05,
+     0.2,
+     0.5
+    ]
+   },
+   "history_masking_fractions": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    1.0
+   ]
+  },
+  "three_seed_ablations": {
+   "variants": [
+    "NoGraphEncoder",
+    "NoOrder",
+    "NoAuxLoss",
+    "NoEdges",
+    "NoTaskAttention",
+    "ConstantFusion",
+    "BestSingle: GraphTrajectory"
+   ],
+   "new_training_seeds": [
+    42,
+    2026
+   ],
+   "seed_17_source": "notebook 05 and 06 predictions of the frozen configuration",
+   "holm_family": "each variant versus AlphaProg-AGMT, separately for LogLoss and Effort NLL (7 tests each)"
+  },
+  "auxiliary_weight_sensitivity": {
+   "values": [
+    0.03,
+    0.1,
+    0.3,
+    1.0
+   ],
+   "scope": "GraphTrajectory expert, full-training fit, three seeds",
+   "frozen_value": 1.0
+  },
+  "next_school_year_split": {
+   "cutoff_utc": "2019-09-01",
+   "training": "original training learners, queries starting before the cutoff",
+   "evaluation": "original locked-test learners, queries starting on or after the cutoff",
+   "settings": "frozen hyperparameters; gate refitted on new out-of-fold predictions with frozen L2 and prior"
+  },
+  "unseen_task_split": {
+   "folds": 3,
+   "assignment": "tasks stratified by curriculum level, ordered by training frequency, assigned in rotation",
+   "training": "original training learners, queries on tasks outside the fold",
+   "evaluation": "original locked-test learners, queries on tasks inside the fold",
+   "unknown_task_encoding": "held-out task identifiers map to the reserved unknown index; task descriptors and the reference-solution graph of the task remain available",
+   "limitation": "programs of held-out tasks can appear in learners' prior histories"
+  },
+  "split_comparators": [
+   "GlobalMean",
+   "ItemMean",
+   "LogisticRegression",
+   "RandomForest",
+   "XGBoost",
+   "LightGBM",
+   "TabM",
+   "DKT",
+   "GraphTrajectory",
+   "AlphaProg-AGMT"
+  ],
+  "split_comparators_excluded": {
+   "AKT": "computational cost",
+   "UKT": "computational cost"
+  },
+  "neural_convergence": {
+   "models": [
+    "DKT",
+    "AKT",
+    "UKT",
+    "TabM"
+   ],
+   "epochs": 16,
+   "seed": 17,
+   "learning_rates": "selected in notebook 04",
+   "selection": "best epoch by validation LogLoss; test reported at epoch 8 and at the selected epoch"
+  },
+  "matched_inputs": {
+   "LightGBM-Sequence": "frozen LightGBM settings with the 30 per-episode process channels of the last 8 prior attempts added"
+  },
+  "code_aware_kt": {
+   "model": "Code-DKT-type re-implementation from the published description (code2vec-style AST path attention combined with DKT); not the authors' code",
+   "path_contexts_per_program": 16,
+   "learning_rates": [
+    0.001,
+    0.003
+   ],
+   "selection": "learner-fold OOF LogLoss with seed 17",
+   "budget": "8 epochs, width 64, batch 512, as for DKT"
+  },
+  "standardized_cost": {
+   "device": "CPU",
+   "threads": 4,
+   "neural_training": "one epoch measured, eight-epoch cost reported as an explicit extrapolation",
+   "inference": "locked test, 22,899 queries"
+  }
+ },
+ "test_independence": "not independent: the test split had been evaluated before this configuration was selected",
+ "execution_record": {
+  "executed": "2026-11-19",
+  "device": "Windows 11, NVIDIA GeForce RTX 5070 Laptop GPU, PyTorch 2.11.0+cu128; graph training with deterministic CUDA kernels",
+  "runs": [
+   "full execution with all post hoc fits on this computer"
+  ],
+  "configuration_changed": false,
+  "key_results": {
+   "fusion_vs_expert_logloss": [
+    8.7e-05,
+    -0.000626,
+    0.000778
+   ],
+   "fusion_vs_expert_effort_nll": [
+    0.001366,
+    0.000256,
+    0.002603
+   ],
+   "ablation_NoTaskAttention_logloss": [
+    0.000275,
+    -0.000198,
+    0.000753
+   ],
+   "ablation_NoAuxLoss_logloss": [
+    0.001351,
+    0.000697,
+    0.002078
+   ],
+   "next_school_year_vs_LightGBM": [
+    0.007825,
+    0.005227,
+    0.010361
+   ],
+   "unseen_tasks_vs_GraphTrajectory": [
+    -0.006397,
+    -0.007841,
+    -0.005018
+   ]
+  },
+  "notebook_validation": "56 of 56 code cells executed in order; no error or stream outputs"
+ }
+}

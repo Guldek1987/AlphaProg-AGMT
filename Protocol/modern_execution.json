@@ -1,0 +1,1 @@
+{"feature_revision": "event_prefix_v2", "completed": true, "seeds": [17, 42, 2026], "devices": {"DKT": "cuda", "AKT": "cpu", "UKT": "cuda", "TabM": "cuda"}, "threads": {"DKT": 2, "AKT": 4, "UKT": 2, "TabM": 2}}

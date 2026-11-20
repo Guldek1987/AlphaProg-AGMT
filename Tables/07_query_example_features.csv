@@ -1,0 +1,11 @@
+Variable,Meaning,Value
+history_n,Prior attempts started before t0,3.0
+history_available,Any prior history,1.0
+hist_solved,Mean solved-before-t0 over prior attempts,0.3333333333333333
+hist_first_correct,Mean first-run correctness over prior attempts,0.5
+hist_log_n_executions,Mean log(1 + runs before t0),0.6931471805599453
+hist_code_nodes,Mean program size before t0 (nodes),2.3333333333333335
+q_level,Curriculum section of the new task,2.0
+y (target),First run of the new task is correct,0.0
+effort_runs (target),Runs until first success or censoring,3.0
+effort_observed (target),Success observed within the visit,1.0

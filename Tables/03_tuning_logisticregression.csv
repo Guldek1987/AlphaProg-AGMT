@@ -1,0 +1,3 @@
+Model,Split,n,Candidate,Configuration,LogLoss ↓,Brier ↓
+LogisticRegression,Train OOF,108877,0,"{""C"": 0.1}",0.5530644955062071,0.18715125219991746
+LogisticRegression,Train OOF,108877,1,"{""C"": 1.0}",0.5527475501720883,0.18704414048472173

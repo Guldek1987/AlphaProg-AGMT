@@ -1,0 +1,21 @@
+Model,Parameter,Value
+AlphaProg-AGMT,Base predictor,LightGBM
+AlphaProg-AGMT,Graph width,32
+AlphaProg-AGMT,Graph steps,2
+AlphaProg-AGMT,History limit,32
+AlphaProg-AGMT,Raw history channels,30
+AlphaProg-AGMT,History task descriptors,8
+AlphaProg-AGMT,Node limit,64
+AlphaProg-AGMT,Epochs,8
+AlphaProg-AGMT,Learning rate,0.001
+AlphaProg-AGMT,Auxiliary weight,1.0
+AlphaProg-AGMT,Weight decay,0.0
+AlphaProg-AGMT,Dropout,0.0
+AlphaProg-AGMT,Reference-solution graph,No
+AlphaProg-AGMT,Target-conditioned attention,No
+AlphaProg-AGMT,Interaction embedding,Yes
+AlphaProg-AGMT,Task read-out,Yes
+AlphaProg-AGMT,Gate L2,0.0
+AlphaProg-AGMT,Gate prior,0.5
+AlphaProg-AGMT,Gate for new tasks,Novelty-specific gate
+AlphaProg-AGMT,Screen selection,− Task attention

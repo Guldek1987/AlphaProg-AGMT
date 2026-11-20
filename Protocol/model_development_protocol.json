@@ -1,0 +1,387 @@
+{
+  "status": "registered_before_execution",
+  "written_before_execution_utc": "2026-11-18T19:29:33Z",
+  "model_name": "AlphaProg-AGMT",
+  "reason": [
+    "The development addresses five questions: whether fusion adds value over the standalone expert, whether the model generalises to unseen tasks, how the auxiliary weight should be set, whether every component is needed, and how the method differs from code-aware knowledge tracing."
+  ],
+  "integrity": {
+    "test_independence": "The test split had been evaluated before this screen was executed. The test evaluation of the selected configuration is therefore not an independent confirmation; it is reported as such in the manuscript.",
+    "selection_split": "Validation",
+    "rule": "Every choice (training regime, auxiliary weight, architectural modules, capacity, gate penalty) is made on the validation split or on out-of-fold training predictions. The test is evaluated once, in notebook 06, for the frozen configuration.",
+    "unchanged": [
+      "data, cohorts, learner-disjoint splits and the event_prefix_v2 features of notebooks 01-02",
+      "all comparators, their hyperparameter grids and selected settings (notebooks 03-04)",
+      "reference predictor LightGBM with the common exposure-aware hazard companion",
+      "metrics, seeds 17/42/2026, seed aggregation, learner-cluster bootstrap and randomisation tests, Holm correction",
+      "8 epochs, batch size 256, two message-passing rounds, history limit 32, node limit 64",
+      "the eight reliability cues of the gate"
+    ]
+  },
+  "new_input": {
+    "name": "reference-solution graphs of tasks",
+    "source": "Data/Processed/robo_problems.pkl, column solution (task metadata of the public RoboMission export)",
+    "parser": "parse_minicode of notebook 02, copied verbatim into notebook 05 and verified against every program of Data/Processed/program_graphs.json",
+    "leakage_statement": "The reference solution is static task metadata authored before any learner attempt; it contains no learner outcomes, timing or effort information.",
+    "normalisation": "In the exported reference solutions the red colour condition is written 'r', whereas learner programs use 'd' (Data/Raw/robomission/README_2019.md: red is shortened to 'd' because 'r' stands for right()). Solutions are rewritten to the learner code before parsing; afterwards all 85 solutions parse as valid programs."
+  },
+  "candidate_modules": {
+    "solution_graph": "The target task is encoded by its reference-solution program graph with the same graph encoder that encodes learner programs.",
+    "task_attention": "A target-conditioned multi-head attention reads the recurrent history states; the query is formed from the target-task representation and a learned empty slot allows the model to ignore all prior attempts.",
+    "interaction_embedding": "Each prior attempt additionally contributes a learned 16-dimensional embedding of the pair (prior task, observed outcome state). The outcome state combines the first-run status observed before the query start (not observed, incorrect, correct) with the solved flag; both are existing event-prefix inputs.",
+    "task_readout": "A zero-initialised embedding of the target task adds a task-specific linear read-out of the shared representation to both output logits; a task without an identifier contributes zero."
+  },
+  "screen": {
+    "fits": "full training split, validation predictions, seeds 17, 42 and 2026 for every candidate",
+    "criterion": "three-seed mean validation LogLoss of the expert's first-run probability",
+    "stage_A": {
+      "candidates": {
+        "Regularised, lambda 0.1": {
+          "dropout": 0.1,
+          "weight_decay": 0.0001,
+          "auxiliary_weight": 0.1
+        },
+        "Unregularised, lambda 0.1": {
+          "dropout": 0.0,
+          "weight_decay": 0.0,
+          "auxiliary_weight": 0.1
+        },
+        "Unregularised, lambda 0.3": {
+          "dropout": 0.0,
+          "weight_decay": 0.0,
+          "auxiliary_weight": 0.3
+        },
+        "Unregularised, lambda 1.0": {
+          "dropout": 0.0,
+          "weight_decay": 0.0,
+          "auxiliary_weight": 1.0
+        }
+      },
+      "rule": "the candidate with the lowest criterion becomes the incumbent"
+    },
+    "stage_B": {
+      "candidates": [
+        "incumbent + solution graph",
+        "incumbent + task attention",
+        "incumbent + solution-conditioned attention (both modules)"
+      ],
+      "rule": "a candidate is eligible only if its criterion is lower than the incumbent's by at least 0.0002; the eligible candidate with the lowest criterion is selected, otherwise the incumbent is kept"
+    },
+    "stage_C": {
+      "candidates": {
+        "Width 64": {
+          "width": 64
+        },
+        "Learning rate 0.003": {
+          "learning_rate": 0.003
+        },
+        "Width 64, learning rate 0.003": {
+          "width": 64,
+          "learning_rate": 0.003
+        }
+      },
+      "base": "the stage-B selection",
+      "rule": "a change is adopted only if it lowers the criterion of the stage-B selection by at least 0.0002",
+      "parity": "the learning-rate grid {0.001, 0.003} is the grid tuned for the neural comparators in notebook 04; the epoch budget stays at 8"
+    },
+    "stage_D": {
+      "motivation": "Complementarity diagnostic on development data: a logistic stack fitted on training out-of-fold forecasts and scored on validation lowered the validation LogLoss of the expert by 0.00143 [0.00079, 0.00208] when DKT forecasts were added to the expert and LightGBM, against 0.00051 for LightGBM alone. DKT reads the identity of prior tasks together with their outcomes and has a task-specific read-out, whereas the expert receives eight descriptors of each prior task but not its identity.",
+      "candidates": [
+        "stage-C selection + interaction embedding",
+        "stage-C selection + task read-out",
+        "stage-C selection + interaction embedding and task read-out"
+      ],
+      "base": "the stage-C selection",
+      "rule": "a candidate is eligible only if its criterion is lower than that of the stage-C selection by at least 0.0002; the eligible candidate with the lowest criterion is selected, otherwise the stage-C selection is kept",
+      "leakage_statement": "No new source data. Prior task identifiers and prefix-observed outcomes are columns of Data/Processed/robo_sequences_*.pkl (event_prefix_v2); the target-task identifier is already an input.",
+      "parity": "epochs, batch size, learning rate, width and seeds are unchanged",
+      "test_status": "The test split had been evaluated for the stage-C selection, and analyses of that evaluation had been inspected, before stage D was registered. If a stage-D candidate is adopted, the test is evaluated once for the new frozen configuration and is reported as a non-independent evaluation."
+    },
+    "stage_F": {
+      "motivation": "The forward stages add modules in sequence and do not re-examine earlier adoptions. In the validation ablations of the stage-D selection (seed 17) the removal of the target-conditioned attention did not raise the validation LogLoss of the fused forecast (-0.00039), whereas the removal of the interaction embedding (+0.00097) and of the task read-out (+0.00128) did.",
+      "candidates": "the current selection without one of its adopted optional modules at a time (reference-solution graph, target-conditioned attention, interaction embedding, task read-out); a reduced configuration that was already screened is reused with its three-seed mean",
+      "rule": "a module is retained only if its removal raises the criterion by at least 0.0002, the margin required for adoption; if one or more modules do not meet the margin, the removal with the lowest criterion is applied and the check is repeated for the remaining modules",
+      "consequence": "the gate grid, stage E, the seeds and the ablations are computed for the configuration that leaves stage F",
+      "parity": "epochs, batch size, learning rate, width and seeds are unchanged",
+      "test_status": "No configuration with a stage-D module had been evaluated on the test split when stage F was registered. The test is evaluated once for the frozen configuration that leaves stage F and is reported as a non-independent evaluation."
+    }
+  },
+  "gate": {
+    "penalties": [
+      0.0,
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "prior_expert_weights": [
+      0.2,
+      0.5
+    ],
+    "rule": "seed-17 out-of-fold component predictions; the setting with the lowest validation LogLoss is fixed for all seeds",
+    "stage_E": {
+      "motivation": "The gate is fitted on forecasts for tasks that are present in the training data, and none of its cues signals that a task is new. When the task identifier is unavailable, the reference loses its most informative input, and a gate fitted for known tasks keeps trusting it.",
+      "data": "Task-held-out forecasts on the training partition: tasks are divided into three folds stratified by curriculum section; for every pair (learner fold, task fold), the reference and the expert are fitted on the other learner folds without the tasks of the task fold and predict the held-out learners on the held-out tasks, whose identifier is mapped to the unknown index. Validation counterpart: models fitted on all training queries of the other tasks predict the validation queries of the held-out tasks.",
+      "candidates": {
+        "Single gate": "the selected gate is applied unchanged to new tasks (incumbent)",
+        "Novelty offset": "the intercept of the gate receives one additional coefficient for new tasks, fitted on the task-held-out training forecasts with the other coefficients fixed",
+        "Novelty-specific gate": "a second coefficient vector over the same eight cues is fitted on the task-held-out training forecasts and used for new tasks"
+      },
+      "criterion": "validation LogLoss of the fused first-run forecast on the task-held-out validation forecasts, seed 17",
+      "rule": "the candidate with the lowest criterion is adopted only if it improves on the single gate by at least 0.0002; forecasts for known tasks are unchanged by construction, because the coefficients for known tasks are not refitted",
+      "unchanged": "the eight reliability cues, the gate penalty and prior selected on validation, all comparators",
+      "test_status": "No task-held-out forecast is computed on the test split in notebook 05. The unseen-task scheme of notebook 07 refits the coefficients for new tasks inside its own fitting partition."
+    }
+  },
+  "ablations": {
+    "seed": 17,
+    "variants": "NoGraphEncoder, NoOrder, NoAuxLoss, NoEdges, and NoSolutionGraph, NoTaskAttention, NoInteraction and NoTaskReadout when the module is selected, ConstantFusion, best single component",
+    "gate": "the selected gate setting, refitted on each variant's out-of-fold predictions"
+  },
+  "reporting": [
+    "the screen table with all candidates and seeds",
+    "the test evaluation of the frozen configuration in notebook 06 and the additional analyses of notebook 07 (Protocol/additional_analyses_protocol.json)"
+  ],
+  "amendments": [
+    {
+      "utc": "2026-11-18T19:37:21Z",
+      "change": "colour-code normalisation of reference solutions added to new_input",
+      "reason": "found by a code smoke test of the parser on the solutions; no candidate had been trained or evaluated"
+    },
+    {
+      "utc": "2026-11-18T20:43:29Z",
+      "change": "stage C (width 32/64, learning rate 0.001/0.003) added to the screen",
+      "reason": "capacity and the comparators' learning-rate grid had not been screened; no candidate had been trained or evaluated"
+    },
+    {
+      "utc": "2026-11-20T10:02:58Z",
+      "change": "stage D (interaction embedding, task read-out) added to the screen",
+      "reason": "a complementarity diagnostic on training out-of-fold and validation forecasts indicated that the identity of prior tasks is not available to the expert; no stage-D candidate had been trained or evaluated"
+    },
+    {
+      "utc": "2026-11-20T10:38:20Z",
+      "change": "stage E (gate coefficients for new tasks) added",
+      "reason": "the gate has no cue for task novelty; no task-held-out forecast had been computed on the training or validation partition and no stage-E candidate had been fitted when this stage was registered"
+    },
+    {
+      "utc": "2026-11-20T11:56:51Z",
+      "change": "stage F (backward check of the adopted optional modules) added to the screen",
+      "reason": "the validation ablation of the stage-D selection gave no evidence that the target-conditioned attention still contributes; no reduced configuration of stage F had been trained when this stage was registered, and the test split had not been evaluated for any configuration with a stage-D module"
+    }
+  ],
+  "execution_record": {
+    "executed": "2026-11-20",
+    "device": "Windows 11, NVIDIA GeForce RTX 5070 Laptop GPU, CUDA 12.8, PyTorch 2.11.0+cu128, Python 3.13.17, deterministic CUDA kernels for graph training",
+    "screen": {
+      "Regularised, λ = 0.1": {
+        "stage": "A",
+        "validation_logloss_mean": 0.524711,
+        "seed_sd": 0.000267,
+        "validation_effort_nll_mean": 1.58927,
+        "selected": false
+      },
+      "Unregularised, λ = 0.1": {
+        "stage": "A",
+        "validation_logloss_mean": 0.524495,
+        "seed_sd": 0.000469,
+        "validation_effort_nll_mean": 1.586997,
+        "selected": false
+      },
+      "Unregularised, λ = 0.3": {
+        "stage": "A",
+        "validation_logloss_mean": 0.524307,
+        "seed_sd": 0.000121,
+        "validation_effort_nll_mean": 1.583245,
+        "selected": false
+      },
+      "Unregularised, λ = 1.0": {
+        "stage": "A",
+        "validation_logloss_mean": 0.524102,
+        "seed_sd": 0.00057,
+        "validation_effort_nll_mean": 1.580536,
+        "selected": false
+      },
+      "+ Solution graph": {
+        "stage": "B",
+        "validation_logloss_mean": 0.523933,
+        "seed_sd": 0.000739,
+        "validation_effort_nll_mean": 1.578584,
+        "selected": false
+      },
+      "+ Task attention": {
+        "stage": "B",
+        "validation_logloss_mean": 0.523895,
+        "seed_sd": 0.00087,
+        "validation_effort_nll_mean": 1.580605,
+        "selected": false
+      },
+      "+ Solution-conditioned attention": {
+        "stage": "B",
+        "validation_logloss_mean": 0.524163,
+        "seed_sd": 0.001676,
+        "validation_effort_nll_mean": 1.579266,
+        "selected": false
+      },
+      "Width 64": {
+        "stage": "C",
+        "validation_logloss_mean": 0.524178,
+        "seed_sd": 0.001477,
+        "validation_effort_nll_mean": 1.579751,
+        "selected": false
+      },
+      "Learning rate 0.003": {
+        "stage": "C",
+        "validation_logloss_mean": 0.524358,
+        "seed_sd": 0.001405,
+        "validation_effort_nll_mean": 1.582183,
+        "selected": false
+      },
+      "Width 64, learning rate 0.003": {
+        "stage": "C",
+        "validation_logloss_mean": 0.526875,
+        "seed_sd": 0.002147,
+        "validation_effort_nll_mean": 1.587724,
+        "selected": false
+      },
+      "+ Interaction embedding": {
+        "stage": "D",
+        "validation_logloss_mean": 0.52298,
+        "seed_sd": 0.001234,
+        "validation_effort_nll_mean": 1.57782,
+        "selected": false
+      },
+      "+ Task read-out": {
+        "stage": "D",
+        "validation_logloss_mean": 0.522468,
+        "seed_sd": 0.000662,
+        "validation_effort_nll_mean": 1.575703,
+        "selected": false
+      },
+      "+ Interaction embedding and task read-out": {
+        "stage": "D",
+        "validation_logloss_mean": 0.521734,
+        "seed_sd": 0.000842,
+        "validation_effort_nll_mean": 1.573444,
+        "selected": false
+      },
+      "− Task attention": {
+        "stage": "F",
+        "validation_logloss_mean": 0.521563,
+        "seed_sd": 0.001487,
+        "validation_effort_nll_mean": 1.574062,
+        "selected": true
+      },
+      "− Task attention, − Interaction embedding": {
+        "stage": "F",
+        "validation_logloss_mean": 0.522676,
+        "seed_sd": 0.000142,
+        "validation_effort_nll_mean": 1.575485,
+        "selected": false
+      },
+      "− Task attention, − Task read-out": {
+        "stage": "F",
+        "validation_logloss_mean": 0.523486,
+        "seed_sd": 0.001111,
+        "validation_effort_nll_mean": 1.578222,
+        "selected": false
+      }
+    },
+    "backward_check": [
+      {
+        "configuration": "+ Interaction embedding and task read-out",
+        "removed_module": "Task attention",
+        "validation_logloss_mean": 0.521563,
+        "delta_logloss": -0.000171,
+        "retained": false
+      },
+      {
+        "configuration": "+ Interaction embedding and task read-out",
+        "removed_module": "Interaction embedding",
+        "validation_logloss_mean": 0.522468,
+        "delta_logloss": 0.000734,
+        "retained": true
+      },
+      {
+        "configuration": "+ Interaction embedding and task read-out",
+        "removed_module": "Task read-out",
+        "validation_logloss_mean": 0.52298,
+        "delta_logloss": 0.001246,
+        "retained": true
+      },
+      {
+        "configuration": "− Task attention",
+        "removed_module": "Interaction embedding",
+        "validation_logloss_mean": 0.522676,
+        "delta_logloss": 0.001113,
+        "retained": true
+      },
+      {
+        "configuration": "− Task attention",
+        "removed_module": "Task read-out",
+        "validation_logloss_mean": 0.523486,
+        "delta_logloss": 0.001923,
+        "retained": true
+      }
+    ],
+    "selection": "− Task attention",
+    "frozen_graph_config": {
+      "width": 32,
+      "graph_steps": 2,
+      "use_code": true,
+      "use_edges": true,
+      "use_recurrence": true,
+      "use_solution": false,
+      "use_task_attention": false,
+      "attention_heads": 4,
+      "auxiliary_weight": 1.0,
+      "weight_decay": 0.0,
+      "dropout": 0.0,
+      "learning_rate": 0.001,
+      "max_nodes": 64,
+      "use_interaction": true,
+      "use_task_readout": true
+    },
+    "gate": {
+      "l2": 0.0,
+      "prior": 0.5,
+      "new_tasks": "Novelty-specific gate",
+      "new_task_validation_logloss": {
+        "Reference only": 0.629565,
+        "Expert only": 0.609045,
+        "Single gate": 0.603348,
+        "Novelty offset": 0.603289,
+        "Novelty-specific gate": 0.600981
+      }
+    },
+    "validation_result": {
+      "AlphaProg-AGMT_logloss_seed_mean": 0.519707,
+      "GraphTrajectory_logloss_seed_mean": 0.521563,
+      "LightGBM_logloss": 0.530737
+    },
+    "test_evaluations": 1,
+    "test_result": {
+      "AlphaProg-AGMT_logloss": 0.524162,
+      "GraphTrajectory_logloss": 0.524197,
+      "LightGBM_logloss": 0.535644,
+      "effect_vs_LightGBM": [
+        0.011482,
+        0.009657,
+        0.013227
+      ],
+      "effect_vs_GraphTrajectory": [
+        3.5e-05,
+        -0.000702,
+        0.000858
+      ],
+      "effort_nll_effect_vs_LightGBM": [
+        0.021633,
+        0.018779,
+        0.024557
+      ]
+    },
+    "deviations": [
+      "The reference-solution module missed the stage-B rule (gain 0.00017 against the margin 0.0002) and is not part of the selected configuration; its code remains available as a screened candidate.",
+      "Target-conditioned attention was adopted in stage B and removed by the backward check of stage F.",
+      "Notebooks 05-07 were executed from a fresh kernel with jupyter nbconvert --execute because of their run time; all outputs are saved in the notebooks."
+    ]
+  }
+}

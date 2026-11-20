@@ -1,0 +1,9 @@
+{
+  "feature_revision": "event_prefix_v2",
+  "status": "analysis_completed",
+  "downstream_results_valid": true,
+  "reason": "Replace globally finalized-history selection by strictly as-of observed event prefixes",
+  "locked_test_opened": true,
+  "invariance_probes": 12,
+  "overlap_probes": 4
+}

@@ -1,0 +1,93 @@
+2026-11-20 14:09:38 | History masking | fraction 0.0, seed 17
+2026-11-20 14:09:39 | History masking | fraction 0.0, seed 42
+2026-11-20 14:09:40 | History masking | fraction 0.0, seed 2026
+2026-11-20 14:09:42 | History masking | fraction 0.1, seed 17
+2026-11-20 14:09:43 | History masking | fraction 0.1, seed 42
+2026-11-20 14:09:45 | History masking | fraction 0.1, seed 2026
+2026-11-20 14:09:47 | History masking | fraction 0.3, seed 17
+2026-11-20 14:09:48 | History masking | fraction 0.3, seed 42
+2026-11-20 14:09:49 | History masking | fraction 0.3, seed 2026
+2026-11-20 14:09:51 | History masking | fraction 0.5, seed 17
+2026-11-20 14:09:52 | History masking | fraction 0.5, seed 42
+2026-11-20 14:09:53 | History masking | fraction 0.5, seed 2026
+2026-11-20 14:09:56 | History masking | fraction 1.0, seed 17
+2026-11-20 14:09:57 | History masking | fraction 1.0, seed 42
+2026-11-20 14:09:58 | History masking | fraction 1.0, seed 2026
+2026-11-20 14:10:00 | History masking | done
+2026-11-20 14:10:01 | Three-seed ablations | NoGraphEncoder, seed 42
+2026-11-20 14:11:12 | Three-seed ablations | NoGraphEncoder, seed 2026
+2026-11-20 14:12:21 | Three-seed ablations | NoOrder, seed 42
+2026-11-20 14:14:34 | Three-seed ablations | NoOrder, seed 2026
+2026-11-20 14:16:40 | Three-seed ablations | NoAuxLoss, seed 42
+2026-11-20 14:18:55 | Three-seed ablations | NoAuxLoss, seed 2026
+2026-11-20 14:21:09 | Three-seed ablations | NoEdges, seed 42
+2026-11-20 14:22:45 | Three-seed ablations | NoEdges, seed 2026
+2026-11-20 14:24:23 | Three-seed ablations | NoInteraction, seed 42
+2026-11-20 14:26:38 | Three-seed ablations | NoInteraction, seed 2026
+2026-11-20 14:28:48 | Three-seed ablations | NoTaskReadout, seed 42
+2026-11-20 14:31:01 | Three-seed ablations | NoTaskReadout, seed 2026
+2026-11-20 14:33:12 | Three-seed ablations | done
+2026-11-20 14:33:19 | Expert sensitivity | Auxiliary weight: weight 0.03, window 32, seed 17
+2026-11-20 14:34:04 | Expert sensitivity | Auxiliary weight: weight 0.03, window 32, seed 42
+2026-11-20 14:34:50 | Expert sensitivity | Auxiliary weight: weight 0.03, window 32, seed 2026
+2026-11-20 14:35:35 | Expert sensitivity | Auxiliary weight: weight 0.1, window 32, seed 17
+2026-11-20 14:36:20 | Expert sensitivity | Auxiliary weight: weight 0.1, window 32, seed 42
+2026-11-20 14:37:04 | Expert sensitivity | Auxiliary weight: weight 0.1, window 32, seed 2026
+2026-11-20 14:37:49 | Expert sensitivity | Auxiliary weight: weight 0.3, window 32, seed 17
+2026-11-20 14:38:34 | Expert sensitivity | Auxiliary weight: weight 0.3, window 32, seed 42
+2026-11-20 14:39:19 | Expert sensitivity | Auxiliary weight: weight 0.3, window 32, seed 2026
+2026-11-20 14:40:04 | Expert sensitivity | History window: weight 1.0, window 8, seed 17
+2026-11-20 14:40:48 | Expert sensitivity | History window: weight 1.0, window 8, seed 42
+2026-11-20 14:41:33 | Expert sensitivity | History window: weight 1.0, window 8, seed 2026
+2026-11-20 14:42:17 | Expert sensitivity | History window: weight 1.0, window 16, seed 17
+2026-11-20 14:43:03 | Expert sensitivity | History window: weight 1.0, window 16, seed 42
+2026-11-20 14:43:47 | Expert sensitivity | History window: weight 1.0, window 16, seed 2026
+2026-11-20 14:44:31 | Expert sensitivity | done
+2026-11-20 14:44:32 | Next school year | seed 17
+2026-11-20 14:46:48 | Next school year | seed 42
+2026-11-20 14:49:06 | Next school year | seed 2026
+2026-11-20 14:51:23 | Next school year | done
+2026-11-20 14:51:24 | Unseen tasks | task fold 0, seed 17
+2026-11-20 14:55:46 | Unseen tasks | task fold 0, seed 42
+2026-11-20 15:00:04 | Unseen tasks | task fold 0, seed 2026
+2026-11-20 15:04:27 | Unseen tasks | task fold 1, seed 17
+2026-11-20 15:08:33 | Unseen tasks | task fold 1, seed 42
+2026-11-20 15:12:33 | Unseen tasks | task fold 1, seed 2026
+2026-11-20 15:16:32 | Unseen tasks | task fold 2, seed 17
+2026-11-20 15:20:56 | Unseen tasks | task fold 2, seed 42
+2026-11-20 15:25:16 | Unseen tasks | task fold 2, seed 2026
+2026-11-20 15:29:33 | Unseen tasks | done
+2026-11-20 15:29:35 | Neural convergence | DKT, 16 epochs, seed 17
+2026-11-20 15:29:35 | Neural convergence | AKT, 16 epochs, seed 17
+2026-11-20 15:29:35 | Neural convergence | UKT, 16 epochs, seed 17
+2026-11-20 15:29:35 | Neural convergence | TabM, 16 epochs, seed 17
+2026-11-20 15:29:35 | Neural convergence | done
+2026-11-20 15:29:37 | LightGBM-Sequence | seed 17
+2026-11-20 15:29:37 | LightGBM-Sequence | seed 42
+2026-11-20 15:29:37 | LightGBM-Sequence | seed 2026
+2026-11-20 15:29:37 | LightGBM-Sequence | done
+2026-11-20 15:29:38 | Code-DKT-type | OOF, learning rate 0.001
+2026-11-20 15:29:38 | Code-DKT-type | OOF, learning rate 0.003
+2026-11-20 15:29:38 | Code-DKT-type | full train, learning rate 0.001, seed 17
+2026-11-20 15:29:38 | Code-DKT-type | full train, learning rate 0.001, seed 42
+2026-11-20 15:29:38 | Code-DKT-type | full train, learning rate 0.001, seed 2026
+2026-11-20 15:29:38 | Code-DKT-type | done
+2026-11-20 15:29:41 | Standardized cost | CPU, LogisticRegression
+2026-11-20 15:29:41 | Standardized cost | CPU, RandomForest
+2026-11-20 15:29:41 | Standardized cost | CPU, XGBoost
+2026-11-20 15:29:41 | Standardized cost | CPU, LightGBM
+2026-11-20 15:29:41 | Standardized cost | CPU, LightGBM-Sequence
+2026-11-20 15:29:41 | Standardized cost | CPU, tail-hazard companion
+2026-11-20 15:29:41 | Standardized cost | CPU, DKT, one epoch
+2026-11-20 15:29:41 | Standardized cost | GPU, DKT, one epoch
+2026-11-20 15:29:41 | Standardized cost | CPU, AKT, one epoch
+2026-11-20 15:29:41 | Standardized cost | GPU, AKT, one epoch
+2026-11-20 15:29:41 | Standardized cost | CPU, UKT, one epoch
+2026-11-20 15:29:41 | Standardized cost | GPU, UKT, one epoch
+2026-11-20 15:29:41 | Standardized cost | CPU, TabM, one epoch
+2026-11-20 15:29:41 | Standardized cost | GPU, TabM, one epoch
+2026-11-20 15:29:41 | Standardized cost | CPU, Code-DKT-type, one epoch
+2026-11-20 15:29:41 | Standardized cost | GPU, Code-DKT-type, one epoch
+2026-11-20 15:29:41 | Standardized cost | CPU, GraphTrajectory, one epoch
+2026-11-20 15:30:00 | Standardized cost | GPU, GraphTrajectory, one epoch
+2026-11-20 15:30:15 | Standardized cost | done

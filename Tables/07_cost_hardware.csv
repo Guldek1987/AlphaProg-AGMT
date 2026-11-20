@@ -1,0 +1,9 @@
+Component,Value
+CPU,Intel(R) Core(TM) i7-14650HX
+Logical CPU cores,24
+CPU threads used,4
+GPU,NVIDIA GeForce RTX 5070 Laptop GPU
+NVIDIA driver,610.62
+CUDA (PyTorch build),12.8
+PyTorch,2.11.0+cu128
+Operating system,Windows-11-10.0.26200-SP0

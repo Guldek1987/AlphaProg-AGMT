@@ -1,0 +1,8 @@
+{
+  "base": "LightGBM",
+  "best_ml": "LightGBM",
+  "best_dl": "TabM",
+  "dl_strictly_better_all_metrics": false,
+  "selection_split": "Validation",
+  "locked_test_opened": false
+}

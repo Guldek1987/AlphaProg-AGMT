@@ -1,0 +1,4 @@
+Model,Split,n,CPU threads,Median step_s
+AKT,Train profiling,512,1,0.5919566000229679
+AKT,Train profiling,512,2,0.38576689996989444
+AKT,Train profiling,512,4,0.2914677999797277
