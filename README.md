@@ -1,8 +1,8 @@
 <h1 align="center">AlphaProg-AGMT</h1>
 
 <p align="center">
-  <b>A Reliability-Gated Graph-Trajectory Algorithm for Forecasting First-Run Correctness and Censored Effort</b><br>
-  <i>An experimental study towards adaptive programming education for Generation Alpha</i>
+  <b>Forecasting First-Run Correctness and Censored Effort in Block-Based Programming</b><br>
+  <i>An experimental study towards adaptive education for Generation Alpha</i>
 </p>
 
 <p align="center">
@@ -65,7 +65,7 @@ P(r \le t) = 1 - (1 - p)(1 - h)^{t-1}
 (\hat{p}, \hat{h}) = (p_B, h_B) + \alpha \left[ (p_G, h_G) - (p_B, h_B) \right]
 ```
 
-The gate is fitted on out-of-fold forecasts and has separate coefficients for tasks that are absent from the training data.
+The gate is fitted on out-of-fold forecasts and has separate coefficients for tasks that are absent from the training data. The two parts have different roles: the expert provides the accuracy where a learner trajectory exists, and the gate determines how far the expert is trusted where the trajectory gives little evidence. The gate is not a second source of accuracy.
 
 **Data preparation.** Histories are reconstructed from the event log. An earlier attempt that is still in progress when the new task starts contributes only its observed prefix. The pipeline is shown in the [data preparation diagram](Docs/DrawIO_PNG_PDF_350dpi/ENG/PNG/AlphaProg_AGMT_Data_and_Architecture_ENG_p1_data_preparation.png).
 
@@ -229,8 +229,8 @@ The article that describes this work is under review. Until it is published, ple
 
 ```bibtex
 @misc{alphaprog_agmt_2026,
-  title        = {AlphaProg-AGMT: A Reliability-Gated Graph-Trajectory Algorithm for
-                  Forecasting First-Run Correctness and Censored Effort},
+  title        = {AlphaProg-AGMT: Forecasting First-Run Correctness and Censored Effort
+                  in Block-Based Programming},
   author       = {Guldek1987},
   year         = {2026},
   howpublished = {\url{https://github.com/Guldek1987/AlphaProg-AGMT}},
